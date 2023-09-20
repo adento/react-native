@@ -20,21 +20,14 @@
 - (UIWindow *)alertWindow
 {
   if (_alertWindow == nil) {
-    _alertWindow = [self getUIWindowFromScene];
-
-    if (_alertWindow == nil) {
-      UIWindow *keyWindow = RCTSharedApplication().keyWindow;
-      if (keyWindow) {
-        _alertWindow = [[UIWindow alloc] initWithFrame:keyWindow.bounds];
-      } else {
-        // keyWindow is nil, so we cannot create and initialize _alertWindow
-        NSLog(@"Unable to create alert window: keyWindow is nil");
-      }
-    }
-
-    if (_alertWindow) {
+    UIWindow *keyWindow = RCTSharedApplication().keyWindow;
+    if (keyWindow) {
+      _alertWindow = [[UIWindow alloc] initWithFrame:keyWindow.bounds];
       _alertWindow.rootViewController = [UIViewController new];
       _alertWindow.windowLevel = UIWindowLevelAlert + 1;
+    } else {
+      // keyWindow is nil, so we cannot create and initialize _alertWindow
+      NSLog(@"Unable to create alert window: keyWindow is nil");
     }
   }
 
@@ -65,6 +58,7 @@
   _alertWindow = nil;
 }
 
+<<<<<<< HEAD:packages/react-native/React/CoreModules/RCTAlertController.mm
 - (UIWindow *)getUIWindowFromScene
 {
   for (UIScene *scene in RCTSharedApplication().connectedScenes) {
@@ -77,4 +71,6 @@
   return nil;
 }
 
+=======
+>>>>>>> parent of 0c53420a7af... Fix RCTAlertController not showing when using SceneDelegate on iOS 13.0+ (#35716):React/CoreModules/RCTAlertController.m
 @end
